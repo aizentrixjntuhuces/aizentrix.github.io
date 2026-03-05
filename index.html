@@ -185,17 +185,39 @@
             justify-content: center;
             backdrop-filter: blur(30px);
             overflow-y: auto;
-            padding: 40px;
+            padding: 20px;
         }
 
         .modal-container {
-            max-width: 1100px;
-            width: 95%;
-            padding: 50px;
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
             text-align: center;
             background: #000;
             border: 2px solid #ff00ff;
             box-shadow: 0 0 50px rgba(255, 0, 255, 0.2);
+        }
+
+        /* MOBILE FIX */
+        @media (max-width:768px){
+
+            .modal-container{
+                padding:25px;
+            }
+
+            .modal-container h1{
+                font-size:32px !important;
+                line-height:1.2;
+            }
+
+            .modal-container ul{
+                font-size:16px;
+            }
+
+            .modal-overlay{
+                padding:15px;
+            }
+
         }
     </style>
 </head>
@@ -211,19 +233,20 @@
                     <button class="nav-link hover:text-cyan-400">TECH</button>
                     <div x-show="open" x-transition class="dropdown-menu absolute left-0 mt-2">
                         <button @click="openModal('hackathon')" class="dropdown-item orbitron">NEURAL_HACK</button>
-                        <button @click="openModal('coderace')" class="dropdown-item orbitron">CODE_RACE</button>
-                        <button @click="openModal('quiz')" class="dropdown-item orbitron">TECH_QUIZ</button>
-                        <button @click="openModal('debug')" class="dropdown-item orbitron">DEBUG_DOOM</button>
+                        <button @click="openModal('coderace')" class="dropdown-item orbitron">BLIND_CODING</button>
+                        <button @click="openModal('quiz')" class="dropdown-item orbitron">CODE_GOLF</button>
+                        <button @click="openModal('debug')" class="dropdown-item orbitron">CODE_RELAY</button>
+                        <button @click="openModal('debug')" class="dropdown-item orbitron">T_PICTIONARY</button>
                     </div>
                 </div>
 
                 <div class="relative group" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link hover:text-pink-500">NON-TECH</button>
                     <div x-show="open" x-transition class="dropdown-menu absolute left-0 mt-2">
-                        <button @click="openModal('bgmi')" class="dropdown-item orbitron">BGMI_ARENA</button>
-                        <button @click="openModal('flashmob')" class="dropdown-item orbitron">FLASH_MOB</button>
-                        <button @click="openModal('dance')" class="dropdown-item orbitron">DANCE_CONTEST</button>
-                        <button @click="openModal('fun')" class="dropdown-item orbitron">FUN_ZONE</button>
+                        <button @click="openModal('bgmi')" class="dropdown-item orbitron">MOVIE_QUIZ</button>
+                        <button @click="openModal('flashmob')" class="dropdown-item orbitron">MURDER_HOUSE</button>
+                        <button @click="openModal('dance')" class="dropdown-item orbitron">POSTER_MAKING</button>
+                        <button @click="openModal('fun')" class="dropdown-item orbitron">SCAVENGE_HUNT</button>
                     </div>
                 </div>
 
@@ -233,7 +256,7 @@
     </nav>
 
     <section class="min-h-screen flex flex-col justify-center items-center text-center pt-32 pb-10 px-4">
-        <img src="aizentrixlogo.png" alt="Aizentrix Logo" class="main-logo mb-8">
+        <img src="/Aizentrix Logo.png" alt="Aizentrix Logo" class="main-logo mb-8">
         
         <h1 class="orbitron text-5xl md:text-7xl font-black glitch mb-4 text-white" data-text="AIZENTRIX">AIZENTRIX</h1>
         
@@ -284,10 +307,10 @@
     <template x-if="activeModal">
         <div class="modal-overlay" x-transition.opacity>
             <div class="modal-container">
-                <button @click="activeModal = null" class="fixed top-8 right-8 orbitron text-pink-500 text-xl border-2 border-pink-500 px-4 py-1 hover:bg-pink-500 hover:text-white transition-all">
+               <button @click="activeModal = null" class="fixed top-8 right-8" orbitron text-pink-500 text-xl border-2 border-pink-500 px-4 py-1 hover:bg-pink-500 hover:text-white transition-all">
                     [ SHUT_DOWN ]
                 </button>
-                <h1 class="orbitron text-5xl md:text-8xl font-black glitch text-white mb-8 uppercase" :data-text="eventDetails[activeModal].title" x-text="eventDetails[activeModal].title"></h1>
+                <h1 class="orbitron text-3xl md:text-7xl font-black glitch text-white mb-6 uppercase" :data-text="eventDetails[activeModal].title" x-text="eventDetails[activeModal].title"></h1>
                 <div class="border-y border-cyan-500/30 py-10 mb-10 text-left bg-black/60 px-10">
                     <h4 class="orbitron text-pink-500 mb-6 text-2xl font-black uppercase">>> SYSTEM_RULES:</h4>
                     <ul class="space-y-4 text-base md:text-xl text-gray-200">
@@ -299,8 +322,12 @@
                         </template>
                     </ul>
                 </div>
-                <button onclick="playClick()" class="bg-cyan-500 text-black px-16 py-5 orbitron font-black text-2xl hover:bg-pink-500 hover:text-white transition-all shadow-[0_0_30px_rgba(0,243,255,0.4)]">
+                <button 
+                    @click="playClick(); window.open(eventDetails[activeModal].form,'_blank')"
+                    class="bg-cyan-500 text-black px-10 md:px-16 py-4 orbitron font-black text-lg md:text-2xl hover:bg-pink-500 hover:text-white transition-all shadow-[0_0_30px_rgba(0,243,255,0.4)]">
+
                     REGISTER_ENTRY
+
                 </button>
             </div>
         </div>
@@ -324,14 +351,7 @@
 
     <p class="orbitron text-[10px] tracking-[0.4em] text-gray-500 uppercase">
         © 2026 AIZENTRIX // <span class="text-pink-500 font-bold">CREATED BY TECH_TEAM_AIZENTRIX</span>
-
     </p>
-    <p class="orbitron text-[10px] tracking-[0.4em] text-gray-500 uppercase">
-    CONTACT US AT : 
-        <span class="text-pink-500 font-bold">+91 9441745945</span> //
-        <span class="text-pink-500 font-bold">+91 7989617499</span>
-    </p>
-
 </footer>
 
 <script>
@@ -386,7 +406,7 @@
                     {name: 'BHAVANI', role: 'SPORTS_COORDINATOR'}
                 ],
                 scheduleData: [
-                    {time: '11:00 AM', title: 'NEURAL_HACK', desc: 'AI/ML Hackathon', loc: 'CYBER BLOCK', id: 'hackathon'},
+                    {time: '11:00 AM', title: 'NEURAL_HACK', desc: '24 Hour Hackathon', loc: 'CYBER BLOCK', id: 'hackathon'},
                     {time: '12:30 PM', title: 'BLIND_CODING', desc: 'Coding without seeing screen', loc: 'ZONE X', id: 'CODE1'},
                     {time: '02:00 PM', title: 'CODE_GOLF', desc: 'Shortest Solution', loc: 'CYBER BLOCK', id: 'CODE2'},
                     {time: '03:30 PM', title: 'CODE_RELAY', desc: 'Relay Coding Challenge', loc: 'CAMPUS', id: 'CODE3'},
@@ -398,7 +418,7 @@
                     {time: '02:00 PM', title: 'SCAVENGE_HUNT', desc: 'Find hidden items around campus', loc: 'CAMPUS', id: 'scavenger'}
                 ],
                 eventDetails: {
-                    hackathon: { title: 'NEURAL_HACK', rules: ['Team size: 4.', '24 Hours.', 'AI theme.'] },
+                    hackathon: { title: 'NEURAL_HACK', form: 'https://forms.gle/R49DBPYyG51FfrHF6', rules: ['Team size: 3-5.', '24 Hours.', 'AI theme.'] },
                     CODE1:{ title: 'BLIND_CODING', rules: ['Team size:2.', 'HackerRank.', 'Best Solution Wins'] },
                     CODE2: { title: 'CODE_GOLF', rules: ['Individual.', 'HackerRank.', 'Shortest Solution Wins'] },
                     CODE3: { title: 'CODE_RELAY', rules: ['Team of 3.', 'Person 1 writes function logic', 'Person 2 debugs','Person 3 optimizes','Switch every 3 minutes.'] },
@@ -414,5 +434,3 @@
     </script>
 </body>
 </html>
-
-

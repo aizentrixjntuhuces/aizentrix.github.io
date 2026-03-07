@@ -110,14 +110,20 @@
             border-top: 1px solid rgba(255, 0, 150, 0.1);
             border-bottom: 1px solid rgba(255, 0, 150, 0.1);
         }
+
         .marquee-track {
             display: flex;
-            animation: marquee 20s linear infinite;
             width: max-content;
+            animation: scrollMarquee 80s linear infinite;
         }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+
+        @keyframes scrollMarquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
         .coord-card {
             min-width: 300px;
@@ -266,16 +272,23 @@
 
         <div class="marquee-wrapper mb-12">
             <div class="marquee-track">
-                <template x-for="i in 2">
-                    <div class="flex">
-                        <template x-for="person in coordinators">
-                            <div class="coord-card">
-                                <p class="orbitron text-white font-bold text-xl" x-text="person.name"></p>
-                                <p class="coord-role orbitron" x-text="person.role"></p>
-                            </div>
-                        </template>
+
+                <!-- FIRST SET -->
+                <template x-for="person in coordinators">
+                    <div class="coord-card">
+                        <p class="orbitron text-white font-bold text-xl" x-text="person.name"></p>
+                        <p class="coord-role orbitron" x-text="person.role"></p>
                     </div>
                 </template>
+
+                <!-- DUPLICATE SET FOR INFINITE SCROLL -->
+                <template x-for="person in coordinators">
+                    <div class="coord-card">
+                        <p class="orbitron text-white font-bold text-xl" x-text="person.name"></p>
+                        <p class="coord-role orbitron" x-text="person.role"></p>
+                    </div>
+                </template>
+
             </div>
         </div>
         
@@ -397,11 +410,6 @@
                     {name: 'NEERAJ', role: 'TECH_COORDINATOR'},
                     {name: 'MANISHA', role: 'TECH_COORDINATOR'},
                     {name: 'PRANATHI', role: 'TECH_COORDINATOR'},
-                    
-                    {name: 'RAM CHARAN', role: 'MOB_COORDINATOR'},
-                    {name: 'HARSHA', role: 'MOB_COORDINATOR'},
-                    {name: 'SANJANA', role: 'MOB_COORDINATOR'},
-                    {name: 'SRI VIDYA', role: 'MOB_COORDINATOR'},
 
                     {name: 'CHAKRAVARTHY', role: 'FINANCE_COORDINATOR'},
                     {name: 'ADITH', role: 'FINANCE_COORDINATOR'},
@@ -418,6 +426,11 @@
                     {name: 'NANI', role: 'SPORTS_COORDINATOR'},
                     {name: 'SHARANYA', role: 'SPORTS_COORDINATOR'},
                     {name: 'BHAVANI', role: 'SPORTS_COORDINATOR'},
+
+                    {name: 'RAM CHARAN', role: 'MOB_COORDINATOR'},
+                    {name: 'HARSHA', role: 'MOB_COORDINATOR'},
+                    {name: 'SANJANA', role: 'MOB_COORDINATOR'},
+                    {name: 'SRI VIDYA', role: 'MOB_COORDINATOR'},
 
                     {name: 'PAWAN', role: 'DECORATION_COORDINATOR'},
                     {name: 'SAI NAGESH', role: 'DECORATION_COORDINATOR'},
@@ -436,13 +449,13 @@
                     
                 ],
                 scheduleData: [
-                    {time: '11:00 AM', title: 'NEURAL_HACK', desc: '24 Hour Hackathon', loc: 'CYBER BLOCK', id: 'hackathon'},
+                    {time: '11:00 AM', title: 'NEURAL_HACK', desc: '24 Hour Hackathon', loc: 'AIZENTRIX BLOCK', id: 'hackathon'},
                     {time: '12:30 PM', title: 'BLIND_CODING', desc: 'Coding without seeing screen', loc: 'ZONE X', id: 'CODE1'},
-                    {time: '02:00 PM', title: 'CODE_GOLF', desc: 'Shortest Solution', loc: 'CYBER BLOCK', id: 'CODE2'},
+                    {time: '02:00 PM', title: 'CODE_GOLF', desc: 'Shortest Solution', loc: 'AIZENTRIX BLOCK', id: 'CODE2'},
                     {time: '03:30 PM', title: 'CODE_RELAY', desc: 'Relay Coding Challenge', loc: 'CAMPUS', id: 'CODE3'},
-                    {time: '02:00 PM', title: 'T_PICTIONARY', desc: 'Guess the Tech Term', loc: 'CYBER BLOCK', id: 'CODE4'},
+                    {time: '02:00 PM', title: 'T_PICTIONARY', desc: 'Guess the Tech Term', loc: 'AIZENTRIX BLOCK', id: 'CODE4'},
 
-                    {time: '02:00 PM', title: 'MOVIE_QUIZ', desc: 'Quiz on Movies', loc: 'CYBER BLOCK', id: 'quiz'},
+                    {time: '02:00 PM', title: 'MOVIE_QUIZ', desc: 'Quiz on Movies', loc: 'AIZENTRIX BLOCK', id: 'quiz'},
                     {time: '02:00 PM', title: 'MURDER_HOUSE', desc: 'Murder Mystery Game', loc: 'CAMPUS', id: 'MYSTERY'},
                     {time: '02:00 PM', title: 'POSTER_MAKING', desc: 'Create a poster on a given theme', loc: 'CAMPUS', id: 'fun'},
                     {time: '02:00 PM', title: 'SCAVENGE_HUNT', desc: 'Find hidden items around campus', loc: 'CAMPUS', id: 'scavenger'}
